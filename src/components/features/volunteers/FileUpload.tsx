@@ -75,7 +75,7 @@ export function FileUpload({ inscripcionId, atributos }: Props) {
           <div className="flex items-center gap-2 text-destructive font-medium">
             <AlertTriangle className="h-4 w-4" />Errores encontrados
           </div>
-          {errors.map((err, i) => <p key={i} className="text-sm text-destructive/80 pl-6">{err}</p>)}
+          {errors.map((err, i) => <p key={`${i}-${err}`} className="text-sm text-destructive/80 pl-6">{err}</p>)}
         </div>
       )}
 

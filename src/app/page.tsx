@@ -31,7 +31,7 @@ export default function LandingPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 font-semibold text-xs sm:text-sm text-foreground hover:text-indigo-500 transition-colors group"
             >
-              <div className="bg-[#0A66C2] group-hover:bg-indigo-500 rounded-md p-1 transition-colors">
+              <div className="bg-linkedin group-hover:bg-primary rounded-md p-1 transition-colors">
                 <Linkedin className="size-3.5 text-white" />
               </div>
               Francisco Romero

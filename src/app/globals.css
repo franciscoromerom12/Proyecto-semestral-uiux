@@ -54,6 +54,19 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Feature icon semantic colors (marketing sections) */
+    --feature-1: 350 89% 60%;
+    --feature-1-bg: 350 89% 94%;
+    --feature-2: 221 83% 53%;
+    --feature-2-bg: 221 83% 94%;
+    --feature-3: 262 83% 58%;
+    --feature-3-bg: 262 83% 94%;
+    --feature-4: 142 71% 45%;
+    --feature-4-bg: 142 76% 94%;
+
+    /* LinkedIn brand color */
+    --linkedin: 201 100% 38%;
   }
 
   .dark {
@@ -84,6 +97,29 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Status colors in dark mode */
+    --status-assigned: 142 60% 50%;
+    --status-assigned-bg: 142 50% 14%;
+    --status-assigned-foreground: 142 60% 75%;
+
+    --status-waiting: 38 85% 55%;
+    --status-waiting-bg: 38 70% 14%;
+    --status-waiting-foreground: 38 80% 78%;
+
+    --status-unassigned: 0 70% 58%;
+    --status-unassigned-bg: 0 60% 15%;
+    --status-unassigned-foreground: 0 70% 80%;
+
+    /* Feature icon colors (dark mode) */
+    --feature-1: 350 80% 65%;
+    --feature-1-bg: 350 50% 18%;
+    --feature-2: 220 75% 62%;
+    --feature-2-bg: 221 50% 18%;
+    --feature-3: 262 75% 65%;
+    --feature-3-bg: 262 50% 18%;
+    --feature-4: 142 60% 50%;
+    --feature-4-bg: 142 50% 14%;
   }
 }
 

@@ -11,9 +11,9 @@ const highlights = [
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden min-h-[88vh] flex items-center">
-      <div className="pointer-events-none absolute hidden lg:block" style={{ width: '300px', height: '260px', left: '36%', top: '10%', borderRadius: '43% 57% 65% 35% / 35% 42% 58% 65%', background: 'hsl(221 83% 53% / 0.14)', filter: 'blur(5px)' }} />
+      <div className="pointer-events-none absolute hidden lg:block" style={{ width: '300px', height: '260px', left: '36%', top: '10%', borderRadius: '43% 57% 65% 35% / 35% 42% 58% 65%', background: 'hsl(var(--primary) / 0.14)', filter: 'blur(5px)' }} />
       <svg className="pointer-events-none absolute right-0 top-0 h-full hidden lg:block" style={{ width: '56%' }} viewBox="0 0 560 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M560,0 L560,900 L118,900 C52,808 -18,658 24,498 C66,338 182,238 150,94 C128,16 212,0 560,0 Z" fill="hsl(221, 83%, 53%)" />
+        <path d="M560,0 L560,900 L118,900 C52,808 -18,658 24,498 C66,338 182,238 150,94 C128,16 212,0 560,0 Z" fill="hsl(var(--primary))" />
       </svg>
       <div className="pointer-events-none absolute inset-0 lg:hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[500px] w-full max-w-2xl rounded-full bg-primary/8 blur-3xl" />
@@ -37,7 +37,7 @@ export function HeroSection() {
             <ul className="space-y-2.5">
               {highlights.map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-                  <CheckCircle2 className="size-4 text-emerald-500 shrink-0" />
+                  <CheckCircle2 className="size-4 text-status-assigned shrink-0" />
                   {item}
                 </li>
               ))}
@@ -65,10 +65,10 @@ export function HeroSection() {
 
 function AppPreview() {
   const volunteers = [
-    { initials: 'MG', name: 'María García', zone: 'Zona Norte', status: 'Asignado', statusColor: 'bg-emerald-100 text-emerald-700' },
-    { initials: 'CL', name: 'Carlos López', zone: 'Zona Sur', status: 'Asignado', statusColor: 'bg-emerald-100 text-emerald-700' },
-    { initials: 'AM', name: 'Ana Martínez', zone: '—', status: 'En espera', statusColor: 'bg-amber-100 text-amber-700' },
-    { initials: 'LR', name: 'Luis Rodríguez', zone: 'Zona Este', status: 'Asignado', statusColor: 'bg-emerald-100 text-emerald-700' },
+    { initials: 'MG', name: 'María García', zone: 'Zona Norte', status: 'Asignado', statusClass: 'bg-status-assigned-bg text-status-assigned-foreground' },
+    { initials: 'CL', name: 'Carlos López', zone: 'Zona Sur', status: 'Asignado', statusClass: 'bg-status-assigned-bg text-status-assigned-foreground' },
+    { initials: 'AM', name: 'Ana Martínez', zone: '—', status: 'En espera', statusClass: 'bg-status-waiting-bg text-status-waiting-foreground' },
+    { initials: 'LR', name: 'Luis Rodríguez', zone: 'Zona Este', status: 'Asignado', statusClass: 'bg-status-assigned-bg text-status-assigned-foreground' },
   ]
   return (
     <div className="relative w-full max-w-md">
@@ -81,7 +81,11 @@ function AppPreview() {
         </div>
         <div className="p-4 space-y-3">
           <div className="grid grid-cols-3 gap-2">
-            {[{ label: 'Voluntarios', value: '33', dotColor: 'bg-primary' }, { label: 'Asignados', value: '30', dotColor: 'bg-emerald-500' }, { label: 'Zonas activas', value: '5', dotColor: 'bg-violet-500' }].map((stat) => (
+            {[
+              { label: 'Voluntarios', value: '33', dotColor: 'bg-primary' },
+              { label: 'Asignados', value: '30', dotColor: 'bg-status-assigned' },
+              { label: 'Zonas activas', value: '5', dotColor: 'bg-feature-3' },
+            ].map((stat) => (
               <div key={stat.label} className="rounded-lg border border-border bg-background p-3">
                 <div className={`size-1.5 rounded-full ${stat.dotColor} mb-2`} />
                 <div className="text-sm font-bold text-foreground">{stat.value}</div>
@@ -106,7 +110,7 @@ function AppPreview() {
                       <div className="text-[10px] text-muted-foreground">{v.zone}</div>
                     </div>
                   </div>
-                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${v.statusColor}`}>{v.status}</span>
+                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${v.statusClass}`}>{v.status}</span>
                 </div>
               ))}
             </div>
@@ -115,8 +119,8 @@ function AppPreview() {
       </div>
       <div className="absolute -bottom-3 -right-3 rounded-xl border border-border bg-white p-3 shadow-xl">
         <div className="flex items-center gap-2.5">
-          <div className="size-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-            <CheckCircle2 className="size-4 text-emerald-600" />
+          <div className="size-8 rounded-full bg-status-assigned-bg flex items-center justify-center shrink-0">
+            <CheckCircle2 className="size-4 text-status-assigned" />
           </div>
           <div>
             <div className="text-xs font-semibold text-foreground">Zona Norte cubierta</div>

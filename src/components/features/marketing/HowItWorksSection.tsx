@@ -7,10 +7,8 @@ const steps = [
     title: 'Importa tu Excel y mapea tu tabla',
     description:
       'Sube el archivo con tus inscripciones y Assigna detecta automáticamente las columnas. Mapea cada columna a los atributos de tu proyecto en segundos, sin configuración manual.',
-    iconBg: 'bg-violet-100',
-    iconColor: 'text-violet-500',
-    numberColor: 'text-violet-200',
-    accent: 'bg-violet-500',
+    iconBg: 'bg-feature-3-bg',
+    iconColor: 'text-feature-3',
   },
   {
     number: '02',
@@ -18,10 +16,8 @@ const steps = [
     title: 'Agrega las zonas de tu proyecto',
     description:
       'Define las zonas con sus cupos y parámetros. Puedes agregar tantas zonas como necesites y ajustar los cupos en cualquier momento antes de la asignación.',
-    iconBg: 'bg-rose-100',
-    iconColor: 'text-rose-500',
-    numberColor: 'text-rose-200',
-    accent: 'bg-rose-500',
+    iconBg: 'bg-feature-1-bg',
+    iconColor: 'text-feature-1',
   },
   {
     number: '03',
@@ -29,10 +25,8 @@ const steps = [
     title: 'Define los criterios de ordenamiento',
     description:
       'Configura las prioridades y restricciones propias de tu voluntariado: equilibrio de género, diversidad de carreras, preferencias de zona, orden de llegada y más.',
-    iconBg: 'bg-blue-100',
-    iconColor: 'text-blue-500',
-    numberColor: 'text-blue-200',
-    accent: 'bg-blue-500',
+    iconBg: 'bg-feature-2-bg',
+    iconColor: 'text-feature-2',
   },
   {
     number: '04',
@@ -40,10 +34,8 @@ const steps = [
     title: 'Ordena a los voluntarios automáticamente',
     description:
       'Con un clic, Assigna distribuye a todos los voluntarios respetando tus criterios. Puedes ajustar manualmente cualquier asignación y exportar el resultado final.',
-    iconBg: 'bg-emerald-100',
-    iconColor: 'text-emerald-500',
-    numberColor: 'text-emerald-200',
-    accent: 'bg-emerald-500',
+    iconBg: 'bg-feature-4-bg',
+    iconColor: 'text-feature-4',
   },
 ]
 

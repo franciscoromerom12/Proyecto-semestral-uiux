@@ -68,6 +68,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        feature: {
+          "1": "hsl(var(--feature-1))",
+          "1-bg": "hsl(var(--feature-1-bg))",
+          "2": "hsl(var(--feature-2))",
+          "2-bg": "hsl(var(--feature-2-bg))",
+          "3": "hsl(var(--feature-3))",
+          "3-bg": "hsl(var(--feature-3-bg))",
+          "4": "hsl(var(--feature-4))",
+          "4-bg": "hsl(var(--feature-4-bg))",
+        },
+        linkedin: "hsl(var(--linkedin))",
       },
       borderRadius: {
         lg: "var(--radius)",

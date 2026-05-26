@@ -42,7 +42,6 @@ export function VolunteerTable({ inscripcionId, atributos }: Props) {
   const [search, setSearch] = useState('')
   const [filtros, setFiltros] = useState<FiltrosVoluntarios>(FILTROS_INICIALES)
   const [seleccionado, setSeleccionado] = useState<VoluntarioEntity | null>(null)
-  const [, forceUpdate] = useState(0)
 
   const nombreAtributo = atributos.find(a => a.rolSistema === 'nombre_completo')?.nombre ?? atributos[0]?.nombre
 
@@ -67,9 +66,9 @@ export function VolunteerTable({ inscripcionId, atributos }: Props) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input placeholder="Buscar..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
           </div>
-          <AddVolunteerModal inscripcionId={inscripcionId} atributos={atributos} onSuccess={() => forceUpdate(n => n + 1)} />
+          <AddVolunteerModal inscripcionId={inscripcionId} atributos={atributos} onSuccess={() => {}} />
           <CustomSortConfigButton inscripcionId={inscripcionId} atributos={atributos} />
-          <AutoSortButton inscripcionId={inscripcionId} onComplete={() => forceUpdate(n => n + 1)} />
+          <AutoSortButton inscripcionId={inscripcionId} onComplete={() => {}} />
         </div>
 
         <div className="text-sm text-muted-foreground">{filtered.length} voluntarios</div>
@@ -79,9 +78,9 @@ export function VolunteerTable({ inscripcionId, atributos }: Props) {
             <thead className="bg-muted">
               <tr>
                 {atributos.map(a => (
-                  <th key={a.id} className="text-left p-3 font-medium text-muted-foreground whitespace-nowrap">{a.nombre}</th>
+                  <th key={a.id} scope="col" className="text-left p-3 font-medium text-muted-foreground whitespace-nowrap">{a.nombre}</th>
                 ))}
-                <th className="text-left p-3 font-medium text-muted-foreground whitespace-nowrap">Estado</th>
+                <th scope="col" className="text-left p-3 font-medium text-muted-foreground whitespace-nowrap">Estado</th>
               </tr>
             </thead>
             <tbody>
@@ -109,7 +108,7 @@ export function VolunteerTable({ inscripcionId, atributos }: Props) {
         nombreAtributo={nombreAtributo}
         inscripcionId={inscripcionId}
         onClose={() => setSeleccionado(null)}
-        onSuccess={() => { setSeleccionado(null); forceUpdate(n => n + 1) }}
+        onSuccess={() => setSeleccionado(null)}
       />
     </TooltipProvider>
   )

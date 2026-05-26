@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { Wand2, Loader2 } from 'lucide-react'
+import { Wand2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
@@ -13,26 +12,21 @@ interface Props {
 }
 
 export function AutoSortButton({ inscripcionId, onComplete }: Props) {
-  const [isRunning, setIsRunning] = useState(false)
   const { autoSort } = useMockStore()
 
   function handleConfirm() {
-    setIsRunning(true)
-    setTimeout(() => {
-      const result = autoSort(inscripcionId)
-      toast.success(
-        `Ordenamiento completado: ${result.totalAsignados} asignados, ${result.totalListaEspera} en lista de espera, ${result.totalFiltrados} filtrados`,
-      )
-      setIsRunning(false)
-      onComplete()
-    }, 800)
+    const result = autoSort(inscripcionId)
+    toast.success(
+      `Ordenamiento completado: ${result.totalAsignados} asignados, ${result.totalListaEspera} en lista de espera, ${result.totalFiltrados} filtrados`,
+    )
+    onComplete()
   }
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" disabled={isRunning} className="gap-2">
-          {isRunning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
+        <Button variant="outline" className="gap-2">
+          <Wand2 className="h-4 w-4" />
           Ordenar automáticamente
         </Button>
       </AlertDialogTrigger>

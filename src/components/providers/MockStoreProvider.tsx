@@ -116,30 +116,35 @@ export function MockStoreProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const importarVoluntarios = useCallback((inscripcionId: string, rows: Record<string, string>[]) => {
-    const existentes = voluntarios[inscripcionId] ?? []
-    const base = existentes.length
-    const nuevos: VoluntarioEntity[] = rows.map((datos, i) => ({
-      id: uid(),
-      inscripcionId,
-      zonaId: null,
-      estado: 'no_asignado' as const,
-      ordenLlegada: base + i + 1,
-      datos,
-      createdAt: new Date(),
-      updatedAt: null,
-    }))
-    setVoluntarios(prev => ({ ...prev, [inscripcionId]: [...(prev[inscripcionId] ?? []), ...nuevos] }))
-    return nuevos.length
-  }, [voluntarios])
+    let importados = 0
+    setVoluntarios(prev => {
+      const existentes = prev[inscripcionId] ?? []
+      const nuevos: VoluntarioEntity[] = rows.map((datos, i) => ({
+        id: uid(),
+        inscripcionId,
+        zonaId: null,
+        estado: 'no_asignado' as const,
+        ordenLlegada: existentes.length + i + 1,
+        datos,
+        createdAt: new Date(),
+        updatedAt: null,
+      }))
+      importados = nuevos.length
+      return { ...prev, [inscripcionId]: [...existentes, ...nuevos] }
+    })
+    return importados
+  }, [])
 
   const addVoluntario = useCallback((inscripcionId: string, datos: Record<string, string>) => {
-    const existentes = voluntarios[inscripcionId] ?? []
-    const nuevo: VoluntarioEntity = {
-      id: uid(), inscripcionId, zonaId: null, estado: 'no_asignado',
-      ordenLlegada: existentes.length + 1, datos, createdAt: new Date(), updatedAt: null,
-    }
-    setVoluntarios(prev => ({ ...prev, [inscripcionId]: [...(prev[inscripcionId] ?? []), nuevo] }))
-  }, [voluntarios])
+    setVoluntarios(prev => {
+      const existentes = prev[inscripcionId] ?? []
+      const nuevo: VoluntarioEntity = {
+        id: uid(), inscripcionId, zonaId: null, estado: 'no_asignado',
+        ordenLlegada: existentes.length + 1, datos, createdAt: new Date(), updatedAt: null,
+      }
+      return { ...prev, [inscripcionId]: [...existentes, nuevo] }
+    })
+  }, [])
 
   const updateVoluntarioZona = useCallback((voluntarioId: string, inscripcionId: string, zonaId: string) => {
     setVoluntarios(prev => ({

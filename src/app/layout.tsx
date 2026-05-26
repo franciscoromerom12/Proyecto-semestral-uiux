@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import { MockStoreProvider } from '@/components/providers/MockStoreProvider'
 import './globals.css'
 
@@ -17,11 +18,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={fontSans.variable}>
+    <html lang="es" className={fontSans.variable} suppressHydrationWarning>
       <body className="antialiased">
-        <MockStoreProvider>
-          {children}
-        </MockStoreProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <MockStoreProvider>
+            {children}
+          </MockStoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog'
 import { CalendarDays, Plus, FolderOpen, Trash2 } from 'lucide-react'
 import { CreateInscripcionModal } from './CreateInscripcionModal'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { useMockStore } from '@/components/providers/MockStoreProvider'
 
 export function InscripcionesPanel() {
@@ -28,10 +29,13 @@ export function InscripcionesPanel() {
             <h1 className="text-xl font-bold text-foreground">Mis Inscripciones</h1>
             <p className="text-sm text-muted-foreground">Procesos de asignación de voluntarios</p>
           </div>
-          <Button onClick={() => setModalOpen(true)} className="gap-1.5">
-            <Plus className="h-4 w-4" />
-            Nueva inscripción
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button onClick={() => setModalOpen(true)} className="gap-1.5">
+              <Plus className="h-4 w-4" />
+              Nueva inscripción
+            </Button>
+          </div>
         </div>
       </header>
 

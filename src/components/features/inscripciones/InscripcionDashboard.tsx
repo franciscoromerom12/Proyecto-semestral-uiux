@@ -1,8 +1,7 @@
 'use client'
 
+import { notFound } from 'next/navigation'
 import { useRouter } from 'next/navigation'
-import type { InscripcionEntity } from '@/lib/domain/inscripciones/types'
-import type { AtributoEntity } from '@/lib/domain/atributos/types'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
@@ -13,14 +12,21 @@ import { FileUpload } from '@/components/features/volunteers/FileUpload'
 import { VolunteerTable } from '@/components/features/volunteers/VolunteerTable'
 import { WaitlistView } from '@/components/features/volunteers/WaitlistView'
 import { Separator } from '@/components/ui/separator'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { useMockStore } from '@/components/providers/MockStoreProvider'
 
 interface Props {
-  inscripcion: InscripcionEntity
-  atributos: AtributoEntity[]
+  inscripcionId: string
 }
 
-export function InscripcionDashboard({ inscripcion, atributos }: Props) {
+export function InscripcionDashboard({ inscripcionId }: Props) {
   const router = useRouter()
+  const { inscripciones, atributos } = useMockStore()
+
+  const inscripcion = inscripciones.find(i => i.id === inscripcionId)
+  if (!inscripcion) notFound()
+
+  const attrs = atributos[inscripcionId] ?? []
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,6 +42,7 @@ export function InscripcionDashboard({ inscripcion, atributos }: Props) {
               <p className="text-sm text-muted-foreground mt-0.5">{inscripcion.descripcion}</p>
             )}
           </div>
+          <ThemeToggle />
         </div>
       </header>
 
@@ -50,33 +57,33 @@ export function InscripcionDashboard({ inscripcion, atributos }: Props) {
           </TabsList>
 
           <TabsContent value="general">
-            <Dashboard inscripcionId={inscripcion.id} />
+            <Dashboard inscripcionId={inscripcionId} />
           </TabsContent>
 
           <TabsContent value="zonas">
             <div className="space-y-8">
-              <ZoneView inscripcionId={inscripcion.id} atributos={atributos} />
+              <ZoneView inscripcionId={inscripcionId} atributos={attrs} />
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <Separator className="flex-1" />
                   <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">Gestionar Zonas</span>
                   <Separator className="flex-1" />
                 </div>
-                <ZoneManager inscripcionId={inscripcion.id} />
+                <ZoneManager inscripcionId={inscripcionId} />
               </div>
             </div>
           </TabsContent>
 
           <TabsContent value="voluntarios">
-            <VolunteerTable inscripcionId={inscripcion.id} atributos={atributos} />
+            <VolunteerTable inscripcionId={inscripcionId} atributos={attrs} />
           </TabsContent>
 
           <TabsContent value="importar">
-            <FileUpload inscripcionId={inscripcion.id} atributos={atributos} />
+            <FileUpload inscripcionId={inscripcionId} atributos={attrs} />
           </TabsContent>
 
           <TabsContent value="espera">
-            <WaitlistView inscripcionId={inscripcion.id} atributos={atributos} />
+            <WaitlistView inscripcionId={inscripcionId} atributos={attrs} />
           </TabsContent>
         </Tabs>
       </main>

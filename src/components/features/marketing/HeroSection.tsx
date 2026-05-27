@@ -45,7 +45,7 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <Button size="lg" asChild>
                 <Link href="/home">
-                  Ver la demo
+                  Entrar a la demo
                   <ArrowRight className="ml-2 size-4" />
                 </Link>
               </Button>
@@ -117,7 +117,7 @@ function AppPreview() {
           </div>
         </div>
       </div>
-      <div className="absolute -bottom-3 -right-3 rounded-xl border border-border bg-white p-3 shadow-xl">
+      <div className="absolute -bottom-3 -right-3 rounded-xl border border-border bg-background p-3 shadow-xl">
         <div className="flex items-center gap-2.5">
           <div className="size-8 rounded-full bg-status-assigned-bg flex items-center justify-center shrink-0">
             <CheckCircle2 className="size-4 text-status-assigned" />

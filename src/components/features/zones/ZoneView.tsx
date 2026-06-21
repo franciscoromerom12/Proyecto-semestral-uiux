@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, Star } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
 import type { AtributoEntity } from '@/lib/domain/atributos/types'
@@ -48,7 +48,9 @@ export function ZoneView({ inscripcionId, atributos }: Props) {
       </div>
 
       {zonas.map(zona => {
-        const asignados = voluntarios.filter(v => v.zonaId === zona.id && v.estado === 'asignado')
+        const asignados = voluntarios
+          .filter(v => v.zonaId === zona.id && v.estado === 'asignado')
+          .sort((a, b) => Number(b.esMiembroEquipo ?? false) - Number(a.esMiembroEquipo ?? false))
         const isOpen = openIds.has(zona.id)
 
         return (
@@ -84,7 +86,14 @@ export function ZoneView({ inscripcionId, atributos }: Props) {
                           onClick={() => setSeleccionado(v)}
                         >
                           <td className="p-3">
-                            {nombreAtributo ? (v.datos[nombreAtributo] ?? '—') : v.id}
+                            <span className="flex items-center gap-2">
+                              {nombreAtributo ? (v.datos[nombreAtributo] ?? '—') : v.id}
+                              {v.esMiembroEquipo && (
+                                <Badge className="bg-primary/15 text-primary border-0 gap-1 text-xs">
+                                  <Star className="h-3 w-3 fill-primary" />Equipo
+                                </Badge>
+                              )}
+                            </span>
                           </td>
                           <td className="p-3">
                             <Badge className="bg-status-assigned-bg text-status-assigned-foreground border-0">
@@ -146,6 +155,7 @@ export function ZoneView({ inscripcionId, atributos }: Props) {
         voluntario={seleccionado}
         zonas={zonas}
         voluntarios={voluntarios}
+        atributos={atributos}
         nombreAtributo={nombreAtributo}
         onClose={() => setSeleccionado(null)}
         onSuccess={() => setSeleccionado(null)}

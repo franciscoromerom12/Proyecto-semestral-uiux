@@ -9,6 +9,7 @@ import { Dashboard } from '@/components/features/volunteers/Dashboard'
 import { ZoneManager } from '@/components/features/zones/ZoneManager'
 import { ZoneView } from '@/components/features/zones/ZoneView'
 import { FileUpload } from '@/components/features/volunteers/FileUpload'
+import { CorrerListaEspera } from '@/components/features/volunteers/CorrerListaEspera'
 import { VolunteerTable } from '@/components/features/volunteers/VolunteerTable'
 import { WaitlistView } from '@/components/features/volunteers/WaitlistView'
 import { Separator } from '@/components/ui/separator'
@@ -57,7 +58,7 @@ export function InscripcionDashboard({ inscripcionId }: Props) {
           </TabsList>
 
           <TabsContent value="general">
-            <Dashboard inscripcionId={inscripcionId} />
+            <Dashboard inscripcionId={inscripcionId} atributos={attrs} />
           </TabsContent>
 
           <TabsContent value="zonas">
@@ -79,7 +80,18 @@ export function InscripcionDashboard({ inscripcionId }: Props) {
           </TabsContent>
 
           <TabsContent value="importar">
-            <FileUpload inscripcionId={inscripcionId} atributos={attrs} />
+            <Tabs defaultValue="archivo">
+              <TabsList className="mb-4">
+                <TabsTrigger value="archivo">Importar Excel</TabsTrigger>
+                <TabsTrigger value="lista-espera">Correr lista de espera</TabsTrigger>
+              </TabsList>
+              <TabsContent value="archivo">
+                <FileUpload inscripcionId={inscripcionId} atributos={attrs} />
+              </TabsContent>
+              <TabsContent value="lista-espera">
+                <CorrerListaEspera inscripcionId={inscripcionId} atributos={attrs} />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
 
           <TabsContent value="espera">

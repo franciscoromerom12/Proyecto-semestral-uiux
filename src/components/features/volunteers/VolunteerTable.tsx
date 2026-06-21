@@ -105,6 +105,7 @@ export function VolunteerTable({ inscripcionId, atributos }: Props) {
         voluntario={seleccionado}
         zonas={zonas}
         voluntarios={volunteers}
+        atributos={atributos}
         nombreAtributo={nombreAtributo}
         inscripcionId={inscripcionId}
         onClose={() => setSeleccionado(null)}

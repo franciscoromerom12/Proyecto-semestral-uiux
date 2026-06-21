@@ -7,7 +7,7 @@ import { Toaster as Sonner } from '@/components/ui/sonner'
 import type { InscripcionEntity } from '@/lib/domain/inscripciones/types'
 import type { AtributoEntity, AtributoTipo } from '@/lib/domain/atributos/types'
 import type { ZonaEntity } from '@/lib/domain/zonas/types'
-import type { VoluntarioEntity } from '@/lib/domain/voluntarios/types'
+import type { VoluntarioEntity, VoluntarioEstado } from '@/lib/domain/voluntarios/types'
 import type { ConfigOrdenEntity, CriterioOrden, FiltroEliminatorio } from '@/lib/domain/config-orden/types'
 import type { ConfigAutomatizacionEntity, PasoAutomatizacion } from '@/lib/domain/automatizacion/types'
 import {
@@ -49,6 +49,8 @@ interface MockStore {
   addVoluntario: (inscripcionId: string, datos: Record<string, string>) => void
   updateVoluntarioZona: (voluntarioId: string, inscripcionId: string, zonaId: string) => void
   moverAListaEspera: (voluntarioId: string, inscripcionId: string) => void
+  toggleMiembroEquipo: (voluntarioId: string, inscripcionId: string) => void
+  agregarVoluntarioConDestino: (inscripcionId: string, datos: Record<string, string>, estado: VoluntarioEstado, zonaId: string | null) => void
   autoSort: (inscripcionId: string) => { totalAsignados: number; totalListaEspera: number; totalFiltrados: number }
 
   // Config orden
@@ -164,6 +166,26 @@ export function MockStoreProvider({ children }: { children: ReactNode }) {
     }))
   }, [])
 
+  const toggleMiembroEquipo = useCallback((voluntarioId: string, inscripcionId: string) => {
+    setVoluntarios(prev => ({
+      ...prev,
+      [inscripcionId]: (prev[inscripcionId] ?? []).map(v =>
+        v.id === voluntarioId ? { ...v, esMiembroEquipo: !v.esMiembroEquipo, updatedAt: new Date() } : v
+      ),
+    }))
+  }, [])
+
+  const agregarVoluntarioConDestino = useCallback((inscripcionId: string, datos: Record<string, string>, estado: VoluntarioEstado, zonaId: string | null) => {
+    setVoluntarios(prev => {
+      const existentes = prev[inscripcionId] ?? []
+      const nuevo: VoluntarioEntity = {
+        id: uid(), inscripcionId, zonaId, estado,
+        ordenLlegada: existentes.length + 1, datos, createdAt: new Date(), updatedAt: null,
+      }
+      return { ...prev, [inscripcionId]: [...existentes, nuevo] }
+    })
+  }, [])
+
   const autoSort = useCallback((inscripcionId: string) => {
     const vols = voluntarios[inscripcionId] ?? []
     const zs = zonas[inscripcionId] ?? []
@@ -225,7 +247,7 @@ export function MockStoreProvider({ children }: { children: ReactNode }) {
       inscripciones, atributos, zonas, voluntarios, configOrden, configAutomatizacion,
       createInscripcion, deleteInscripcion,
       addZona, updateZona, deleteZona,
-      importarVoluntarios, addVoluntario, updateVoluntarioZona, moverAListaEspera, autoSort,
+      importarVoluntarios, addVoluntario, updateVoluntarioZona, moverAListaEspera, toggleMiembroEquipo, agregarVoluntarioConDestino, autoSort,
       saveConfigOrden, saveConfigAutomatizacion,
     }}>
       <TooltipProvider>

@@ -19,7 +19,7 @@ export function esPUC(universidad: string): boolean {
   return u.includes('PUC') || u.includes('CATÓLICA') || u.includes('CATOLICA') || u.includes('UC ')
 }
 
-function esHombre(sexo: string): boolean {
+export function esHombre(sexo: string): boolean {
   const s = sexo.toLowerCase().trim()
   return s === 'm' || s === 'masculino' || s === 'hombre' || s === 'male'
 }

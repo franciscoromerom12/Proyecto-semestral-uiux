@@ -1,19 +1,59 @@
 import type { VoluntarioEntity } from '@/lib/domain/voluntarios/types'
 import type { AtributoEntity } from '@/lib/domain/atributos/types'
 import type { ZonaEntity } from '@/lib/domain/zonas/types'
-import { construirMapaColumnas } from '@/lib/domain/asignacion/algorithm'
-import { esPUC } from '@/lib/domain/asignacion/algorithm'
+import { construirMapaColumnas, esPUC, esHombre } from '@/lib/domain/asignacion/algorithm'
+
+export type CategoriaFiltro =
+  | 'todos'
+  | 'hombres'
+  | 'mujeres'
+  | 'uc'
+  | 'no_uc'
+  | 'hombres_uc'
+  | 'mujeres_uc'
+
+export const CATEGORIA_FILTRO_LABELS: Record<CategoriaFiltro, string> = {
+  todos: 'Todos',
+  hombres: 'Hombres',
+  mujeres: 'Mujeres',
+  uc: 'UC',
+  no_uc: 'No UC',
+  hombres_uc: 'Hombres UC',
+  mujeres_uc: 'Mujeres UC',
+}
 
 export interface FiltrosVoluntarios {
   pucPrimero: boolean
   ordenInscripcion: boolean
   zonaId: string | null
+  categoria: CategoriaFiltro
 }
 
 export const FILTROS_INICIALES: FiltrosVoluntarios = {
   pucPrimero: false,
   ordenInscripcion: false,
   zonaId: null,
+  categoria: 'todos',
+}
+
+function cumpleCategoria(
+  v: VoluntarioEntity,
+  categoria: CategoriaFiltro,
+  colSexo: string | undefined,
+  colUniversidad: string | undefined,
+): boolean {
+  if (categoria === 'todos') return true
+  const h = esHombre(colSexo ? (v.datos[colSexo] ?? '') : '')
+  const uc = esPUC(colUniversidad ? (v.datos[colUniversidad] ?? '') : '')
+  switch (categoria) {
+    case 'hombres': return h
+    case 'mujeres': return !h
+    case 'uc': return uc
+    case 'no_uc': return !uc
+    case 'hombres_uc': return h && uc
+    case 'mujeres_uc': return !h && uc
+    default: return true
+  }
 }
 
 export function aplicarFiltros(
@@ -24,6 +64,10 @@ export function aplicarFiltros(
 ): VoluntarioEntity[] {
   const mapa = construirMapaColumnas(atributos)
   let resultado = [...voluntarios]
+
+  if (filtros.categoria !== 'todos') {
+    resultado = resultado.filter(v => cumpleCategoria(v, filtros.categoria, mapa.sexo, mapa.universidad))
+  }
 
   if (filtros.zonaId !== null) {
     const zona = zonas.find(z => z.id === filtros.zonaId)

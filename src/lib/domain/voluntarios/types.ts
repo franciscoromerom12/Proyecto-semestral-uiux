@@ -7,6 +7,7 @@ export interface VoluntarioEntity {
   estado: VoluntarioEstado;
   ordenLlegada: number | null;
   datos: Record<string, string>;
+  esMiembroEquipo?: boolean;
   createdAt: Date;
   updatedAt: Date | null;
 }

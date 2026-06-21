@@ -6,13 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import { Dashboard } from '@/components/features/volunteers/Dashboard'
-import { ZoneManager } from '@/components/features/zones/ZoneManager'
 import { ZoneView } from '@/components/features/zones/ZoneView'
 import { FileUpload } from '@/components/features/volunteers/FileUpload'
 import { CorrerListaEspera } from '@/components/features/volunteers/CorrerListaEspera'
 import { VolunteerTable } from '@/components/features/volunteers/VolunteerTable'
 import { WaitlistView } from '@/components/features/volunteers/WaitlistView'
-import { Separator } from '@/components/ui/separator'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { useMockStore } from '@/components/providers/MockStoreProvider'
 
@@ -62,17 +60,7 @@ export function InscripcionDashboard({ inscripcionId }: Props) {
           </TabsContent>
 
           <TabsContent value="zonas">
-            <div className="space-y-8">
-              <ZoneView inscripcionId={inscripcionId} atributos={attrs} />
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Separator className="flex-1" />
-                  <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">Gestionar Zonas</span>
-                  <Separator className="flex-1" />
-                </div>
-                <ZoneManager inscripcionId={inscripcionId} />
-              </div>
-            </div>
+            <ZoneView inscripcionId={inscripcionId} atributos={attrs} />
           </TabsContent>
 
           <TabsContent value="voluntarios">

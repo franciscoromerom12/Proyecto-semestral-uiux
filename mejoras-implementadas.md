@@ -70,7 +70,7 @@ La idea es bajar la carga de decisión: el usuario igual puede elegir lo que qui
 **Lo que se ve ahora:**
 
 - Un botón **"Hacer miembro de equipo / Quitar"** para marcar o desmarcar a una persona.
-- En la vista de zonas, el miembro de equipo aparece **primero en la lista** y con una insignia **⭐ "Equipo"**, para que se distinga al instante del resto.
+- En la vista de zonas, el miembro de equipo aparece **primero en la lista** y con una insignia ** "Equipo"**, para que se distinga al instante del resto.
 
 ---
 
